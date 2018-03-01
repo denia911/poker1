@@ -13,9 +13,10 @@ class Hand
   attr_accessor :combination
   def <=>(other)
     combination_scores = { 'high card' => 1, 'one pair' => 2, 'two pairs' => 3,
-                     'three of a kind' => 4, 'straight' => 5, 'flush' => 6,
-                     'full house' => 7, 'four of a kind' => 8,
-                     'straight flush' => 9, 'royal flush' => 10 }
+                           'three of a kind' => 4, 'straight' => 5,
+                           'flush' => 6, 'full house' => 7,
+                           'four of a kind' => 8, 'straight flush' => 9,
+                           'royal flush' => 10 }
     combination_scores[combination] <=> combination_scores[other.combination]
   end
 
@@ -26,26 +27,37 @@ class Hand
   end
 
   def check
-    self.combination = if RoyalFlush.new(@draw, @hand).check?
-                   'royal flush'
-                 elsif StraightFlush.new(@draw, @hand).check?
-                   'straight flush'
-                 elsif FourOf.new(@draw, @hand).check?
-                   'four of a kind'
-                 elsif FullHouse.new(@draw, @hand).check?
-                   'full house'
-                 elsif Flush.new(@draw, @hand).check?
-                   'flush'
-                 elsif Straight.new(@draw, @hand).check?
-                   'straight'
-                 elsif ThreeOf.new(@draw, @hand).check?
-                   'three of a kind'
-                 elsif TwoPairs.new(@draw, @hand).check?
-                   'two pairs'
-                 elsif OnePair.new(@draw, @hand).check?
-                   'one pair'
-                 else
-                   'high card'
-                 end
+    if RoyalFlush.new(@draw, @hand).check?
+      self.combination = 'royal flush'
+    elsif StraightFlush.new(@draw, @hand).check?
+      self.combination = 'straight flush'
+      @kicker = StraightFlush.new(@draw, @hand).kicker
+    elsif FourOf.new(@draw, @hand).check?
+      self.combination = 'four of a kind'
+      @kicker = FourOf.new(@draw, @hand).kicker
+    elsif FullHouse.new(@draw, @hand).check?
+      self.combination = 'full house'
+      @kicker = FullHouse.new(@draw, @hand).kicker
+    elsif Flush.new(@draw, @hand).check?
+      self.combination = 'flush'
+      @kicker = Flush.new(@draw, @hand).kicker
+    elsif Straight.new(@draw, @hand).check?
+      self.combination = 'straight'
+      @kicker = Straight.new(@draw, @hand).kicker
+    elsif ThreeOf.new(@draw, @hand).check?
+      self.combination = 'three of a kind'
+      @kicker = ThreeOf.new(@draw, @hand).kicker
+    elsif TwoPairs.new(@draw, @hand).check?
+      self.combination = 'two pairs'
+      @kicker = TwoPairs.new(@draw, @hand).kicker
+    elsif OnePair.new(@draw, @hand).check?
+      self.combination = 'one pair'
+      @kicker = OnePair.new(@draw, @hand).kicker
+    else
+      self.combination = 'high card'
+      @kicker = Combinations.new(@draw, @hand).kicker_high_card
+    end
   end
+
+  attr_reader :kicker
 end

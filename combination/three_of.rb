@@ -4,4 +4,8 @@ class ThreeOf < Combinations
   def check?
     x_of_a_kind?(3)
   end
+
+  def kicker
+    kicker_x_of_a_kind(3)
+  end
 end

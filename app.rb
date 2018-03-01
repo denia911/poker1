@@ -1,7 +1,6 @@
 require_relative 'card_deck'
 require_relative 'hand'
 require_relative 'crupier'
-require_relative 'winner'
 
 card_deck = CardDeck.new.mix_deck
 play_draw = Crupier.new(card_deck).draw
@@ -19,5 +18,11 @@ if player1 > player2
 elsif player1 < player2
   print "Winn player2 with combine #{player2.combination}"
 else
-  print "Winn both players with combine #{player2.combination}"
+  if player1.kicker[0] > player2.kicker[0]
+    print "Winn player1 with combine #{player1.combination}"
+  elsif player1.kicker[0] < player2.kicker[0]
+    print "Winn player2 with combine #{player2.combination}"
+  else
+    print "Winn both players with combine #{player2.combination}"
+  end
 end

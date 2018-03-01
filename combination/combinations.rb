@@ -1,3 +1,4 @@
+require_relative '../card'
 # Parrent class for find combinations
 class Combinations
   def initialize(draw, hand)
@@ -45,5 +46,21 @@ class Combinations
                      (values[card] - 4..values[card]).to_a.reverse
     end
     false
+  end
+
+  def kicker_x_of_a_kind(quantity)
+    values = @cards.map { |card| card[0] }
+    @values.each do |value|
+      if (values.select { |card| card == value }).size == quantity
+        return @cards.find { |el| el[0] == value }
+      end
+    end
+  end
+
+  def kicker_high_card
+    values = @cards.map { |card| card[0] }
+    @values.each do |_value|
+      return values.sort.reverse[0]
+    end
   end
 end

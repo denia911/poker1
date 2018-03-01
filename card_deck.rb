@@ -1,20 +1,12 @@
+require_relative 'card'
 # Class for creating card deck
 class CardDeck
   def initialize
     @deck = deck
   end
 
-  def card
-    cards = (2..10).to_a
-    cards << 'J'
-    cards << 'Q'
-    cards << 'K'
-    cards << 'A'
-    cards
-  end
-
   def deck
-    cards = card
+    cards = Card.new.cards
     suits = %w[h d s c]
     card_deck = []
     4.times do |take_suit|

@@ -8,23 +8,15 @@ describe Hand do
     @one_pair_hand = [[2, 'd'], [10, 'd']]
   end
 
-  it 'should be royal flush, 10 points' do
-    expect(Hand.new(@draw, @royal_flush_hand).score).to eq [10, 'royal flush']
+  it 'should be royal flush' do
+    expect(Hand.new(@draw, @royal_flush_hand).check).to eq 'royal flush'
   end
 
-  it 'should be straight, 5 points' do
-    expect(Hand.new(@draw, @straight_hand).score).to eq [5, 'straight']
+  it 'should be straight' do
+    expect(Hand.new(@draw, @straight_hand).check).to eq 'straight'
   end
 
-  it 'should be one pair, 2 points' do
-    expect(Hand.new(@draw, @one_pair_hand).score).to eq [2, 'one pair']
-  end
-
-  it 'should be not full house' do
-    expect(Hand.new(@draw, @one_pair_hand).full_house?).to eq false
-  end
-
-  it 'should be straight flush, 10 points' do
-    expect(Hand.new(@draw, @royal_flush_hand).straight_flush?).to eq true
+  it 'should be one pair' do
+    expect(Hand.new(@draw, @one_pair_hand).check).to eq 'one pair'
   end
 end

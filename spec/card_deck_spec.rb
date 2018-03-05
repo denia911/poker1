@@ -3,10 +3,6 @@ require_relative '../card_deck'
 describe CardDeck do
   before { @card_deck = CardDeck.new }
 
-  it 'should be 13 cards of 1 suit' do
-    expect(@card_deck.card.length).to eq 13
-  end
-
   it 'should be 52 cards in 1 deck' do
     expect(@card_deck.deck.length).to eq 52
   end
@@ -16,6 +12,6 @@ describe CardDeck do
   end
 
   it 'mixed deck not deck' do
-    expect(@card_deck.card).not_to eq(@card_deck.mix_deck)
+    expect(@card_deck.deck).not_to eq(@card_deck.mix_deck)
   end
 end
